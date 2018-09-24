@@ -1,6 +1,7 @@
 init:
 	mkdir ~/workspace
 	git clone git@github.com:MaksOuw/dotfiles ~/workspace/dotfiles
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 symlink:
 	mv ~/.bashrc ~/.bashrc.old
@@ -11,6 +12,8 @@ symlink:
 	ln -s ~/workspace/dotfiles/config/powerline ~/.config/powerline
 
 install: init powerline symlink
+	echo "Don't forget to :\n"
+	echo "vim ~/.vimrc && :PluginInstall"
 
 powerline:
 	sudo pip install git+git://github.com/Lokaltog/powerline
