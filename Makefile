@@ -1,7 +1,11 @@
 init:
-	mkdir ~/workspace
-	git clone git@github.com:MaksOuw/dotfiles ~/workspace/dotfiles
-	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	mkdir -p ~/workspace
+	@if [ ! -d ~/workspace/dotfiles ]; then \
+		git clone git@github.com:MaksOuw/dotfiles ~/workspace/dotfiles; \
+	fi
+	@if [ ! -d ~/.vim/bundle/Vundle.vim ]; then \
+	       git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim; \
+	fi
 
 symlink:
 	mv ~/.bashrc ~/.bashrc.old
@@ -16,11 +20,13 @@ install: init powerline symlink
 	echo "vim ~/.vimrc && :PluginInstall"
 
 powerline:
-	sudo pip install git+git://github.com/Lokaltog/powerline
+	sudo pip3 install git+git://github.com/Lokaltog/powerline
 	wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
 	wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
 	sudo mv PowerlineSymbols.otf /usr/share/fonts/
 	fc-cache -vf /usr/share/fonts/
 	sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
-	mv ~/.config/powerline ~/.config/powerline-old
+	@if [ -d ~/.config/powerline ]; then \
+		mv ~/.config/powerline ~/.config/powerline-old; \
+	fi
 
